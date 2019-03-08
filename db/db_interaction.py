@@ -1,0 +1,103 @@
+# usr/bin/python3
+# -*- coding: utf-8 -*-
+
+
+import sqlalchemy
+from sqlalchemy.orm import sessionmaker
+
+
+from db.db_engine import sql, Products, con, trans
+
+
+Session =sessionmaker(bind=sql)
+
+
+class Interaction:
+    def __init__(self):
+        self.session = Session()
+        self.con = con
+        self.trans = trans
+
+    def changeProduct(self, name, pid):
+        """This method use the sql syntax for update the table"""
+        product = self.session.query(Products).filter(Products.id == pid)
+        for pr in product:
+            old_code = str(pr.bar_code)
+        for pr in product:
+            sub = pr.is_subtitute
+        for pr in product:
+            new_code = str(pr.alter_code)
+        print(sub, old_code)
+        stid = str(pid)
+        if sub == 0:
+            self.con.execute(
+                f"UPDATE products SET name = '{name}', bar_code =" + str(new_code) + ", alter_code=" + str(old_code) + ",\
+                          is_subtitute = 1 WHERE id =" + stid)
+        else:
+            self.con.execute(
+                f"UPDATE products SET name = '{name}', bar_code =" + new_code + ", alter_code=" + old_code + ",\
+                            is_subtitute = 0 WHERE id =" + stid)
+        try:
+            self.trans.commit()
+        except sqlalchemy.exc.InvalidRequestError:
+            self.trans.rollback()
+            self.trans = trans
+
+    def addListProducts(self):
+        """List for load the database"""
+        listProducts = [("Confiture abricot", "Confiture abricot", 3324498000746, 2, 3760121210661, 0), \
+                        ("Confiture pomme au calvados",  "Confiture pomme au calvados", 3324498002542, 2, 3396745001110\
+                        ,0), \
+                        ("Yaourt Brassé", "Yaourt brassé nature", 26065250, 2, 3222474051228, 0), \
+                        ("Tomates Farcies et Riz Long Blanc","Tomates Farcies et Riz Long Blanc", 3258561470641, 1, \
+                         3248830690214, 0), \
+                        ("Crème fraîche légère épaisse", "Crème fraîche légère épaisse", 3700311861334, 1, \
+                         3382322220005, 0), \
+                        ("Pavé de Saumon ASC","Pavé de Saumon ", 40884004, 1, 3270160741939, 0), \
+                        ("Rillettes de Poulet Rôti en Cocotte", "Rillettes de Poulet Rôti", 3560070507832, 1, \
+                         3250391554508, 0), \
+                        ("Cidre Brut","Cidre Brut", 3186630000973, 3, 20466268, 0), \
+                        ("Nectar Multifruits", "Jus Multifruit", 3270190128410, 3, 3254691586054, 0), \
+                        ("Nuggets de Poulet", "Préparation à base de viande de poulet et de dinde traitée en salaison \
+                        reconstituée (60%)", 3222472621218, 1, 3422210446190, 0)]
+        for a, b, c, d, e, f in listProducts:
+            name = Products(name="{}".format(a), generic_name="{}".format(b), bar_code=c, cat=d, alter_code=e,\
+                            is_subtitute=f)
+            self.session.add(name)
+            self.session.commit()
+            print("Produits ajouté")
+
+    def displayTable(self, table, inner, subt):
+        """Display a list of product about a specific filter """
+        if subt == 0:
+            dsply = self.session.query(table)\
+                .filter(table.cat == inner)
+        else:
+            dsply = self.session.query(table) \
+                .filter(table.is_subtitute == 1)
+        for pr in dsply:
+            print("##########################################")
+            print(f"{pr.id}, {pr.name}, {pr.bar_code}")
+            print("##########################################")
+        if subt != 0:
+            input("Taper n'importe quelle touche pour sortir:")
+        else:
+            choice = input("Tapez 00 pou revenir aux catégories ou Entrée pour continuer:")
+            if choice == "00":
+                qut1 = "q"
+                return qut1
+
+    def chooseSubtitute(self, table):
+        """The method take the inner for determinate the product and ask for register"""
+        ex = ""
+        while ex != "n":
+            inner1 = input("\nVeuillez choisir un produit à subtituer:\n")
+            dsply_id = self.session.query(table).filter(table.id == inner1)
+            [print(f"Le produit a subtituer est {pr.name}") for pr in dsply_id]
+            ex = input("Voulez vous changer votre choix? o\\n?:")
+        code = [pr.alter_code for pr in dsply_id]
+        for pr in dsply_id:
+            id = pr.id
+        self.session = Session()
+        return code, id
+
