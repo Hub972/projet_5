@@ -6,7 +6,6 @@ from requests_off import Request
 from choice import Choice
 import sys
 
-
 from db.db_interaction import Interaction
 from db.db_engine import Products
 
@@ -16,8 +15,6 @@ class Run:
         self.req = Request()
         self.choice = Choice()
         self.interaction = Interaction()
-
-
 
     def lunch(self):
         """The synergy for control the script """
@@ -40,7 +37,7 @@ class Run:
                             qut1 = ""
                             break
                         try:
-                            code, id = self.interaction.chooseSubtitute(Products)
+                            code, id = self.choice.chooseSubtitute(Products, qut1)
                             self.req.searchProductCode(code, id)
                         except UnboundLocalError:
                             print("Produit inconnue...")
@@ -52,8 +49,10 @@ class Run:
                     qut = "q"
                 elif inner == "00":
                     shutdown = "q"
+                    print("##########################################")
+                    print("Merci et à bientôt.")
+                    input("##########################################")
                     sys.exit(0)
                 else:
                     self.choice.badChoice()
                     qut = "q"
-
