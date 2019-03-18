@@ -18,7 +18,6 @@ class Run:
 
     def lunch(self):
         """The synergy for control the script """
-
         qut1 = ""
         shutdown = ""
         while shutdown != "q":
@@ -30,7 +29,6 @@ class Run:
                     cat = self.choice.chooseCat()
                     if cat == "00":
                         break
-
                     while qut1 != "q":
                         qut1 = self.interaction.displayTable(Products, cat, 0)
                         if qut1 == "q":
@@ -41,8 +39,6 @@ class Run:
                             self.req.searchProductCode(code, id)
                         except UnboundLocalError:
                             print("Produit inconnue...")
-
-
                 elif inner == "2":
                     all_cat = int()
                     self.interaction.displayTable(Products, all_cat, 1)

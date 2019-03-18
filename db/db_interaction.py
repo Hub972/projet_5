@@ -87,6 +87,7 @@ class Interaction:
             if choice == "00":
                 qut1 = "q"
                 return qut1
+        self.session = Session()
         return l_id
 
 

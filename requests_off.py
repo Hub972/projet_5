@@ -23,18 +23,19 @@ class Request(Interaction):
         while ex != "1":
             choice = input("Voulez vous enregistrer ce produit comme produit principal? o/n: ")
             if choice == "o":
-                nam = data["product_name_fr"]
-                name = str(nam).strip(",")
+                name_d = data["product_name_fr"]
+                name = str(name_d).strip(",")
                 self.changeProduct(name, id)
-                ex = "1"
                 print(sep)
                 print("Le produit a été changé.")
                 print(sep)
                 input("Taper entrer pour sortir")
+                ex = "1"
             elif choice == "n":
                 print(sep)
                 print(" \nLe produit n'a pas été changé.\n ")
                 print(sep)
+                input("Taper entrer pour sortir")
                 ex = "1"
             else:
                 print(" \nJe n'ai pas compris votre demande.\n")
