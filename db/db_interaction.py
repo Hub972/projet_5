@@ -5,7 +5,7 @@
 import sqlalchemy
 from sqlalchemy.orm import sessionmaker
 
-from db.db_engine import sql, Products, con, trans
+from .db_engine import sql, Products, con, trans
 
 Session = sessionmaker(bind=sql)
 
@@ -81,7 +81,7 @@ class Interaction:
             print(f"{pr.id}, {pr.name}, {pr.bar_code}")
             print("##########################################")
         if subt != 0:
-            input("Taper n'importe quelle touche pour sortir:")
+            input("Taper 'Entrée' pour sortir:")
         else:
             choice = input("Tapez 00 pou revenir aux catégories ou Entrée pour continuer:")
             if choice == "00":

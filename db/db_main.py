@@ -18,5 +18,5 @@ def createTable():
 
 
 if __name__ == '__main__':
-    createTable()
+    #createTable()
     main()

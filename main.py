@@ -2,7 +2,7 @@
 # -*- coding: utf-8 -*-
 
 
-from run import Run
+from run_.run import Run
 
 
 def main():

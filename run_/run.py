@@ -2,8 +2,8 @@
 # -*- coding: utf-8 -*-
 
 
-from requests_off import Request
-from choice import Choice
+from requests_off_.requests_off import Request
+from choice_.choice import Choice
 import sys
 
 from db.db_interaction import Interaction

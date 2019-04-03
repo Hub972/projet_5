@@ -12,7 +12,7 @@ class Choice:
         """Main choice"""
         print(self.sep)
         inner1 = input("Que voulez vous faire?\n1- Remplacer un produit\n2- Voir les \
- produits subtitué\n00- Pour sortir du programme\n>")
+ produits substitués\n00- Pour sortir du programme\n>")
         return inner1
 
     def chooseCat(self):
@@ -20,7 +20,7 @@ class Choice:
         inner1 = ""
         while inner1 != "3" and inner1 != "2" and inner1 != "1" and inner1 != "00":
             print(self.sep)
-            inner1 = input("Choisir une catégorie:\n1- Salt products\n2- Sweety products\n3- Liquid products\n00-\
+            inner1 = input("Choisissez une catégorie:\n1- Produits salée\n2- Produits sucrée\n3- Produits liquide\n00-\
  Pour revenir en arrière: ")
             if inner1 != "3" and inner1 != "2" and inner1 != "1" and inner1 != "00":
                 self.badChoice()
@@ -36,7 +36,7 @@ class Choice:
         """The method take the inner for determinate the product and ask for register"""
         ex = ""
         while ex != "n":
-            inner1 = input("\nVeuillez choisir un produit à subtituer:\n")
+            inner1 = input("\nVeuillez choisir un produit à substituer:\n")
             try:
                 if int(inner1) in l_id:
                     dsply_id = self.interaction.session.query(table).filter(table.id == inner1)
