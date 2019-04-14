@@ -1,4 +1,4 @@
-###### **_Project_ 5**__
+### **_Project_ 5**__
 
 This project use the API OpenFoodFacts and this data base for help the user to found a product better than her own 
 product present in the local data base.The User can choose to change or not  the product in the data base and
