@@ -5,10 +5,10 @@ from sqlalchemy import create_engine, Column, INTEGER, VARCHAR, BIGINT, SMALLINT
 from sqlalchemy.ext.declarative import declarative_base
 
 
-sql = create_engine('mysql+mysqldb://root:""@localhost/project5')
-Base = declarative_base()
-con = sql.connect()
-trans = con.begin()
+sql = create_engine('mysql+mysqldb://root:""@localhost/project5') # set the data base to use
+Base = declarative_base() # for create the db.
+con = sql.connect() # for connect to db.
+trans = con.begin() # for transaction with the db.
 
 
 class Products(Base):

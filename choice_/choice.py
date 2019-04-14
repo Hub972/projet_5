@@ -6,7 +6,7 @@ from db.db_interaction import Interaction, Session
 class Choice:
     def __init__(self):
         self.interaction = Interaction()
-        self.sep = "##########################################"
+        self.sep = "#"*42
 
     def baseChoice(self):
         """Main choice"""
@@ -39,16 +39,40 @@ class Choice:
             inner1 = input("\nVeuillez choisir un produit à substituer:\n")
             try:
                 if int(inner1) in l_id:
+                    """Product choice confirmation"""
                     dsply_id = self.interaction.session.query(table).filter(table.id == inner1)
-                    [print(f"Le produit a subtituer est {pr.name}") for pr in dsply_id]
+                    [print(f"Le produit a substituer est {pr.name}") for pr in dsply_id]
                     ex = input("Voulez vous changer votre choix? o\\n?:")
                     if ex != "n" and ex != "o": self.badChoice()
                 else:
+                    """If product id don't in the list"""
                     self.badChoice()
             except ValueError:
+                """If the input don't a integer"""
                 self.badChoice()
         code = [pr.alter_code for pr in dsply_id]
         for pr in dsply_id:
             id = pr.id
         self.interaction.session = Session()
         return code, id
+
+    def choiceProduct(self, name, id):
+        ex = ""
+        sep = '#'*86
+        while ex != "1":
+            choice = input("Voulez vous enregistrer ce produit comme produit principal? o/n: ")
+            if choice == "o":
+                self.interaction.changeProduct(name, id)
+                print(sep)
+                print("Le produit a été changé.")
+                print(sep)
+                input("Taper entrer pour sortir")
+                ex = "1"
+            elif choice == "n":
+                print(sep)
+                print(" \nLe produit n'a pas été changé.\n ")
+                print(sep)
+                input("Taper entrer pour sortir")
+                ex = "1"
+            else:
+                print(" \nJe n'ai pas compris votre demande.\n")

@@ -20,13 +20,14 @@ class Interaction:
         """This method use the sql syntax for update the table"""
         product = self.session.query(Products).filter(Products.id == pid)
         for pr in product:
-            old_code = str(pr.bar_code)
+            old_code = str(pr.bar_code) # search the bar code of product to substitute.
         for pr in product:
-            sub = pr.is_subtitute
+            sub = pr.is_subtitute # search the 'is_substitute' value.
         for pr in product:
-            new_code = str(pr.alter_code)
+            new_code = str(pr.alter_code) # search the new bar code product.
         stid = str(pid)
         if sub == 0:
+            """If sub=0, execute the update and is_substitute=1 else is_substitute=0."""
             self.con.execute(
                 f"UPDATE products SET name = '{name}', bar_code =" + str(new_code) + ",\
                  alter_code=" + str(old_code) + ",\
@@ -40,10 +41,10 @@ class Interaction:
             self.trans.commit()
         except sqlalchemy.exc.InvalidRequestError:
             self.trans.rollback()
-            self.trans = trans
+            self.trans = trans # reinitialize the transaction
 
     def addListProducts(self):
-        """List for load the database"""
+        """List of products to load in the database"""
         listProducts = [("Confiture abricot", "Confiture abricot", 3324498000746, 2, 3760121210661, 0), \
                         ("Confiture pomme au calvados", "Confiture pomme au calvados", 3324498002542, 2, 3396745001110 \
                              , 0), \
@@ -69,9 +70,11 @@ class Interaction:
     def displayTable(self, table, inner, subt):
         """Display a list of product about a specific filter """
         if subt == 0:
+            """About the category"""
             dsply = self.session.query(table) \
                 .filter(table.cat == inner)
         else:
+            """About the substituted products"""
             dsply = self.session.query(table) \
                 .filter(table.is_subtitute == 1)
         l_id = []
@@ -85,9 +88,9 @@ class Interaction:
         else:
             choice = input("Tapez 00 pou revenir aux catégories ou Entrée pour continuer:")
             if choice == "00":
-                qut1 = "q"
+                qut1 = "q" # Value for back in  the previous.
                 return qut1
-        self.session = Session()
-        return l_id
+        self.session = Session() # reinitialize the session.
+        return l_id # Return a list of id products.
 
 

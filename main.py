@@ -11,4 +11,5 @@ def main():
 
 
 if __name__ == '__main__':
+    """Lunch the file 'main.py' for start the application """
     main()
