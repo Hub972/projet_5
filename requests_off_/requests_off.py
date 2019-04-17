@@ -4,17 +4,17 @@
 
 import requests
 
-from db.db_interaction import Interaction
 
+class ApiRequest:
 
-class Request(Interaction):
-    def __init__(self):
-        Interaction.__init__(self)
-
-    def searchProductCode(self, code):
+    @staticmethod
+    def searchProductCode(code):
         """About the bar code , the script search some information in the 'openfoodfacts' API"""
-        req = requests.get(f"https://fr.openfoodfacts.org/api/v0/produit/{code}.json").json()
-        data = req["product"]
+        res = requests.get(f"https://fr.openfoodfacts.org/api/v0/produit/{code}.json").json()
+        data = res["product"]
+        return data
+    @staticmethod
+    def displayInfoProduct(data):
         sep = "#"*87
         sep = "\n"+ sep +"\n"
         print(sep, "Nom du nouveu produit>", data["product_name_fr"], sep, \

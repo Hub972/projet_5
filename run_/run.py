@@ -2,7 +2,7 @@
 # -*- coding: utf-8 -*-
 
 
-from requests_off_.requests_off import Request
+from requests_off_.requests_off import ApiRequest
 from choice_.choice import Choice
 import sys
 
@@ -12,7 +12,6 @@ from db.db_engine import Products
 
 class Run:
     def __init__(self):
-        self.req = Request() # for the request with the API
         self.choice = Choice() # for the different choice in the script
         self.interaction = Interaction() # for transaction with the data base
 
@@ -36,7 +35,8 @@ class Run:
                             break
                         try:
                             code, id = self.choice.chooseSubtitute(Products, qut1)
-                            name = self.req.searchProductCode(code) # request with the api
+                            data = ApiRequest.searchProductCode(code) # request with the api
+                            name = ApiRequest.displayInfoProduct(data)
                             self.choice.choiceProduct(name, id)
                         except UnboundLocalError:
                             print("Produit inconnue...")
