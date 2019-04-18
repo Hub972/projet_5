@@ -36,7 +36,7 @@ class Run:
                         try:
                             code, id = self.choice.chooseSubtitute(Products, qut1)
                             data = ApiRequest.searchProductCode(code) # request with the api
-                            name = ApiRequest.displayInfoProduct(data)
+                            name = Choice.displayInfoProductChoice(data)
                             self.choice.choiceProduct(name, id)
                         except UnboundLocalError:
                             print("Produit inconnue...")
